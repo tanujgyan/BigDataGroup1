@@ -1,5 +1,5 @@
-# Necessary libary functions are used. Here skelearn is used on Group Project test and train dataset to show the function of the backward feature selection algorithm .
-# We used sklearn package for machine learning algorithm here because in spark also we will use MLib anyway.
+# Necessary libary functions are used. Here skelearn is used on our Group Project test and train dataset to show the function of the backward feature selection algorithm .
+# We used sklearn pacaakge for machine learning algorithm here because in spark also we will use MLib anyway.
 #Any other pacakges used here are found to be working with pyspark or that part of the algorithm is already implemented using the given dataset (dataset given in class).
 
 import scipy.io
@@ -7,7 +7,7 @@ from sklearn.cross_validation import KFold
 from sklearn import svm
 from sklearn.metrics import accuracy_score
 import pandas as pd 
-from sklearn.svm import SVC
+from sklearn.linear_model import LogisticRegressionCV
 import numpy as np
 
 
@@ -31,7 +31,7 @@ def reducer_backward(X, y, n_selected_features):
     # SVM used as the classifier, here we only used SVM just to showing the working condition of the code
     # similarly other algorithms like Decision Tree, Naive Bayes and Logistic regression an also be used to do the same,
     # using same procedure
-    function = SVC()
+    clf = LogisticRegressionCV()
 
     # Initially the feature set is subjected to be full as
     # in BFS we keep subtracting the features as we progress
@@ -66,7 +66,7 @@ def reducer_backward(X, y, n_selected_features):
     return np.array(sub_set)
 
 #Main function
-#  dataset file 
+# dataset file 
 data = pd.read_csv("hdfs://hadoop1:9000/CS5433/Group_Project/train_data.csv")
 
 
@@ -81,7 +81,7 @@ n_samples, n_features = X.shape    # number of samples and number of features
 # Using KFold cross validation
 validate = KFold(n_samples, n_folds=10, shuffle=True)
 
-function = svm.LinearSVC()
+function =LogisticRegressionCV()
 
 correct = 0
 
